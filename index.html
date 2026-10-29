@@ -4,54 +4,308 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My First Website</title>
+<title>Jeanverse OS ♡</title>
 <style>
+* { box-sizing: border-box; }
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fff0f5;
-  color: #604254;
-  text-align: center;
+  margin: 0; min-height: 100vh; display: grid;
+  place-items: center; font-family: Arial, sans-serif;
+  background: #f6dce8; color: #70465a;
 }
-header {
-  background: #f7b7d2;
-  padding: 35px 15px;
+.phone {
+  width: min(100%, 390px); height: min(780px, 100dvh);
+  min-height: 600px; position: relative; overflow: hidden;
+  background: linear-gradient(145deg,#f8c9dc,#fff0f5,#eec2da);
 }
-main {
-  padding: 30px 20px;
+.status {
+  height: 32px; display: flex; justify-content: space-between;
+  padding: 10px 20px 0; font-size: 12px;
 }
-.card {
-  max-width: 400px;
-  margin: auto;
-  padding: 25px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px #e8c5d5;
+.screen { height: calc(100% - 32px); padding: 16px 22px 22px; }
+.hidden { display: none !important; }
+button { font: inherit; cursor: pointer; color: inherit; }
+.lock {
+  height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
 }
-button {
-  background: #e77eac;
-  color: white;
-  border: none;
-  padding: 12px 22px;
-  border-radius: 25px;
-  font-size: 16px;
+.clock { font-size: 65px; font-weight: 300; margin: 12px 0; }
+.date { font-size: 14px; }
+.unlock {
+  margin-top: 100px; border: 0; border-radius: 30px;
+  background: #fff; padding: 14px 28px;
 }
+.home { height: 100%; display: flex; flex-direction: column; }
+.greeting { text-align: center; padding: 12px 0 20px; }
+.widget {
+  background: #ffffffa8; padding: 17px; border-radius: 22px;
+  margin-bottom: 24px; text-align: center;
+}
+.widget h2 { margin: 5px; }
+.apps {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 22px 12px;
+}
+.app {
+  border: 0; background: transparent; text-align: center;
+  font-size: 12px;
+}
+.app-icon {
+  width: 60px; height: 60px; margin: 0 auto 8px;
+  border-radius: 20px; background: #ffffffd9;
+  display: grid; place-items: center; font-size: 29px;
+  box-shadow: 0 4px 10px #b87d9a30;
+}
+.dock {
+  margin-top: auto; display: flex; justify-content: space-around;
+  background: #ffffffa8; padding: 12px; border-radius: 24px;
+}
+.dock button { border: 0; background: transparent; font-size: 25px; }
+.page { height: 100%; display: flex; flex-direction: column; }
+.top {
+  display: flex; align-items: center; gap: 15px;
+  margin: 8px 0 22px;
+}
+.back {
+  border: 0; background: #ffffffaa; border-radius: 50%;
+  width: 42px; height: 42px; font-size: 22px;
+}
+h2 { font-size: 22px; }
+.item {
+  background: #ffffffb8; border-radius: 17px;
+  padding: 16px; margin-bottom: 12px;
+}
+.item button, .action {
+  border: 0; border-radius: 18px; padding: 10px 14px;
+  background: #edbad1; margin: 4px;
+}
+.wallpapers { display: flex; gap: 10px; flex-wrap: wrap; }
+.wall {
+  width: 65px; height: 75px; border-radius: 15px;
+  border: 2px solid white;
+}
+input {
+  max-width: 100%; padding: 12px; border-radius: 15px;
+  border: 0; background: white; color: #70465a;
+}
+.message {
+  background: white; border-radius: 16px 16px 16px 4px;
+  padding: 12px; margin: 12px 0; max-width: 85%;
+}
+#messages { flex: 1; overflow: auto; }
+.send { display: flex; gap: 6px; }
+.send input { width: 100%; }
+.calc-display {
+  font-size: 36px; text-align: right; padding: 20px 4px;
+  background: #ffffffaa; border-radius: 18px; overflow-wrap: anywhere;
+}
+.calc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.calc-grid button {
+  border: 0; border-radius: 18px; padding: 18px 0;
+  background: #ffffffc9; font-size: 18px;
+}
+.calc-grid .op { background: #e9afca; }
+.footer { text-align: center; font-size: 11px; padding-top: 12px; }
 </style>
 </head>
 <body>
-<header>
-  <h1>Welcome to My Website ♡</h1>
-  <p>A little place full of creativity.</p>
-</header>
-<main>
-  <div class="card">
-    <h2>Halo, semuanya!</h2>
-    <p>Ini adalah website pertamaku.</p>
-    <p>Aku sedang belajar membuat website dengan HTML dan CSS.</p>
-    <button onclick="alert('Terima kasih sudah berkunjung! ♡')">
-      Click Me!
-    </button>
+<div class="phone" id="phone">
+  <div class="status">
+    <span id="miniTime">09:41</span>
+    <span>● Wi-Fi ▰</span>
   </div>
-</main>
+
+  <main class="screen">
+    <section class="lock" id="lock">
+      <div style="font-size:38px">🌷</div>
+      <div class="clock" id="lockClock">09:41</div>
+      <div class="date" id="date"></div>
+      <p>Welcome to my little world ♡</p>
+      <button class="unlock" onclick="goHome()">↑ &nbsp; Open phone</button>
+      <p style="font-size:12px">Tap to enter your world</p>
+    </section>
+
+    <section class="home hidden" id="home">
+      <div class="greeting">
+        <div id="homeDate"></div>
+        <h2 style="margin-bottom:5px">Hello, Nayra ♡</h2>
+        <div style="font-size:13px">Make today lovely ✨</div>
+      </div>
+      <div class="widget">
+        <div style="font-size:28px">☁️ 🌷 ☁️</div>
+        <h2 id="homeClock">09:41</h2>
+        <div>A little space just for you</div>
+      </div>
+      <div class="apps">
+        <button class="app" onclick="openApp('gallery')"><div class="app-icon">🖼️</div>Gallery</button>
+        <button class="app" onclick="openApp('messages')"><div class="app-icon">💌</div>Messages</button>
+        <button class="app" onclick="openApp('music')"><div class="app-icon">🎵</div>Music</button>
+        <button class="app" onclick="openApp('settings')"><div class="app-icon">⚙️</div>Settings</button>
+        <button class="app" onclick="openApp('calc')"><div class="app-icon">🧮</div>Calculator</button>
+        <button class="app" onclick="openApp('notes')"><div class="app-icon">📔</div>Notes</button>
+      </div>
+      <div class="dock">
+        <button onclick="openApp('phone')">☎️</button>
+        <button onclick="openApp('messages')">💬</button>
+        <button onclick="openApp('music')">🎧</button>
+        <button onclick="openApp('settings')">⚙️</button>
+      </div>
+      <div class="footer">Jeanverse OS · made with ♡</div>
+    </section>
+
+    <section class="page hidden" id="page">
+      <div class="top">
+        <button class="back" onclick="goHome()">‹</button>
+        <h2 id="pageTitle">App</h2>
+      </div>
+      <div id="content" style="flex:1;min-height:0;overflow:auto"></div>
+      <button class="action" onclick="goHome()" style="margin-top:12px">⌂ Home</button>
+    </section>
+  </main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let currentApp = "";
+let calcValue = "";
+let musicPlaying = false;
+
+function updateTime() {
+  const n = new Date();
+  const time = n.toLocaleTimeString("id-ID", {
+    hour: "2-digit", minute: "2-digit", hour12: false
+  });
+  const date = n.toLocaleDateString("en-GB", {
+    weekday: "long", day: "numeric", month: "long"
+  });
+  $("miniTime").textContent = time;
+  $("lockClock").textContent = time;
+  $("homeClock").textContent = time;
+  $("date").textContent = date;
+  $("homeDate").textContent = date;
+}
+updateTime();
+setInterval(updateTime, 1000);
+
+function goHome() {
+  $("lock").classList.add("hidden");
+  $("page").classList.add("hidden");
+  $("home").classList.remove("hidden");
+  currentApp = "";
+}
+
+function openApp(name) {
+  currentApp = name;
+  $("home").classList.add("hidden");
+  $("lock").classList.add("hidden");
+  $("page").classList.remove("hidden");
+
+  const titles = {
+    gallery:"Gallery", messages:"Messages", music:"Music",
+    settings:"Settings", calc:"Calculator", notes:"Notes",
+    phone:"Phone"
+  };
+  $("pageTitle").textContent = titles[name] || name;
+  const c = $("content");
+
+  if (name === "gallery") {
+    c.innerHTML = `
+      <div class="item">🌷 My favorite things</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="item" style="font-size:50px;text-align:center">🌸<br><small>Flowers</small></div>
+        <div class="item" style="font-size:50px;text-align:center">🌅<br><small>Sunset</small></div>
+        <div class="item" style="font-size:50px;text-align:center">🧸<br><small>Memories</small></div>
+        <div class="item" style="font-size:50px;text-align:center">🎀<br><small>Pink</small></div>
+      </div>`;
+  } else if (name === "settings") {
+    c.innerHTML = `
+      <div class="item"><b>Display & wallpaper</b><p>Choose your home screen color.</p>
+      <div class="wallpapers">
+        <button class="wall" style="background:linear-gradient(#f6c1d8,#fff0f5)" onclick="wallpaper('#f6c1d8','#fff0f5')"></button>
+        <button class="wall" style="background:linear-gradient(#c8dafa,#edf4ff)" onclick="wallpaper('#c8dafa','#edf4ff')"></button>
+        <button class="wall" style="background:linear-gradient(#d6e9c9,#f4f8e9)" onclick="wallpaper('#d6e9c9','#f4f8e9')"></button>
+        <button class="wall" style="background:linear-gradient(#dac9f5,#f8f0ff)" onclick="wallpaper('#dac9f5','#f8f0ff')"></button>
+      </div></div>
+      <div class="item"><b>About phone</b><p>Jeanverse OS ♡</p><small>Virtual phone demo · Version 1.0</small></div>`;
+  } else if (name === "messages") {
+    c.innerHTML = `
+      <div id="messages"><div class="message">Welcome to Messages! 💗<br>This is a demo chat.</div></div>
+      <form class="send" onsubmit="sendMessage(event)">
+        <input id="msgInput" placeholder="Write a message..." autocomplete="off">
+        <button class="action">Send</button>
+      </form>`;
+  } else if (name === "music") {
+    c.innerHTML = `
+      <div class="item" style="text-align:center;padding:30px 10px">
+        <div style="font-size:85px">🎧</div><h2>My Little Playlist</h2>
+        <p>Imagine your favorite song ♡</p>
+        <button class="action" onclick="toggleMusic(this)">▶ Play / Pause</button>
+        <p id="musicStatus">Player demo — no audio loaded</p>
+      </div>`;
+  } else if (name === "notes") {
+    c.innerHTML = `
+      <div class="item"><b>My Notes ♡</b><p>Write something for yourself.</p>
+      <textarea id="noteText" placeholder="Your little thoughts..." style="width:100%;height:200px;border:0;border-radius:12px;padding:12px;background:white;color:#70465a"></textarea>
+      <button class="action" onclick="saveNote()">Save note</button>
+      <p id="noteStatus"></p></div>`;
+  } else if (name === "calc") {
+    calcValue = "";
+    c.innerHTML = `
+      <div class="calc-display" id="calcDisplay">0</div>
+      <div class="calc-grid" style="margin-top:12px">
+      ${["7","8","9","÷","4","5","6","×","1","2","3","−","C","0","=","+"].map(k=>
+        `<button class="${["÷","×","−","+","=","C"].includes(k)?"op":""}" onclick="calcPress('${k}')">${k}</button>`
+      ).join("")}
+      </div>`;
+  } else {
+    c.innerHTML = `
+      <div class="item" style="text-align:center">
+      <div style="font-size:55px">☎️</div>
+      <h2>Phone</h2><p>This is a virtual phone screen.</p>
+      <p>It cannot place real calls.</p></div>`;
+  }
+}
+
+function wallpaper(a,b) {
+  $("phone").style.background = `linear-gradient(145deg,${a},${b},${a})`;
+}
+function sendMessage(e) {
+  e.preventDefault();
+  const input = $("msgInput");
+  if (!input.value.trim()) return;
+  const msg = document.createElement("div");
+  msg.className = "message";
+  msg.style.marginLeft = "auto";
+  msg.style.borderRadius = "16px 16px 4px 16px";
+  msg.textContent = input.value;
+  $("messages").appendChild(msg);
+  input.value = "";
+}
+function toggleMusic(btn) {
+  musicPlaying = !musicPlaying;
+  $("musicStatus").textContent = musicPlaying
+    ? "Demo player is on (no audio loaded)"
+    : "Player demo — no audio loaded";
+}
+function saveNote() {
+  $("noteStatus").textContent = "Note saved for this screen ♡";
+}
+function calcPress(k) {
+  const d = $("calcDisplay");
+  if (k === "C") calcValue = "";
+  else if (k === "=") {
+    try {
+      const expression = calcValue.replace(/×/g,"*").replace(/÷/g,"/");
+      if (!/^[0-9+\-*/.() ]+$/.test(expression)) throw Error();
+      const result = Function('"use strict";return (' + expression + ')')();
+      calcValue = Number.isFinite(result) ? String(result) : "";
+    } catch { calcValue = "Error"; }
+  } else {
+    if (calcValue === "Error") calcValue = "";
+    calcValue += k;
+  }
+  d.textContent = calcValue || "0";
+}
+</script>
 </body>
 </html>
+
