@@ -1,311 +1,419 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeanverse OS ♡</title>
+<title>My Virtual Phone</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0; min-height: 100vh; display: grid;
-  place-items: center; font-family: Arial, sans-serif;
-  background: #f6dce8; color: #70465a;
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;background:linear-gradient(135deg,#f9dce8,#dcd6ff,#d7edff);
+  font-family:Arial,sans-serif;color:#453746;padding:18px
 }
-.phone {
-  width: min(100%, 390px); height: min(780px, 100dvh);
-  min-height: 600px; position: relative; overflow: hidden;
-  background: linear-gradient(145deg,#f8c9dc,#fff0f5,#eec2da);
+.phone{
+  width:340px;max-width:100%;height:680px;max-height:90vh;
+  min-height:560px;background:#fff;border:7px solid #423d4a;
+  border-radius:38px;overflow:hidden;position:relative;
+  box-shadow:0 20px 55px #55445b40
 }
-.status {
-  height: 32px; display: flex; justify-content: space-between;
-  padding: 10px 20px 0; font-size: 12px;
+.status{
+  height:30px;padding:8px 20px 0;display:flex;
+  justify-content:space-between;font-size:12px;font-weight:bold
 }
-.screen { height: calc(100% - 32px); padding: 16px 22px 22px; }
-.hidden { display: none !important; }
-button { font: inherit; cursor: pointer; color: inherit; }
-.lock {
-  height: 100%; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
+.screen{height:calc(100% - 30px);display:none;flex-direction:column}
+.screen.active{display:flex}
+.wallpaper{
+  background:linear-gradient(155deg,#fbd9e6,#e9d9ff 55%,#d5eaff);
 }
-.clock { font-size: 65px; font-weight: 300; margin: 12px 0; }
-.date { font-size: 14px; }
-.unlock {
-  margin-top: 100px; border: 0; border-radius: 30px;
-  background: #fff; padding: 14px 28px;
+.lock{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:20px
 }
-.home { height: 100%; display: flex; flex-direction: column; }
-.greeting { text-align: center; padding: 12px 0 20px; }
-.widget {
-  background: #ffffffa8; padding: 17px; border-radius: 22px;
-  margin-bottom: 24px; text-align: center;
+.clock{font-size:58px;font-weight:300;letter-spacing:-2px}
+.date{margin-top:8px;font-size:14px}
+.unlock{
+  margin-top:100px;border:1px solid #ffffffb0;
+  background:#ffffff80;border-radius:30px;padding:13px 26px;
+  color:#453746;font-weight:bold
 }
-.widget h2 { margin: 5px; }
-.apps {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 22px 12px;
+.home{padding:14px 17px 20px;flex:1}
+.greeting{font-size:23px;font-weight:bold;margin:8px 0}
+.subtitle{font-size:12px;opacity:.7}
+.widget{
+  background:#ffffff9c;border-radius:22px;padding:17px;
+  margin:20px 0 24px
 }
-.app {
-  border: 0; background: transparent; text-align: center;
-  font-size: 12px;
+.widget strong{font-size:16px}
+.widget p{font-size:12px;line-height:1.6;margin-bottom:0}
+.apps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:22px 8px
 }
-.app-icon {
-  width: 60px; height: 60px; margin: 0 auto 8px;
-  border-radius: 20px; background: #ffffffd9;
-  display: grid; place-items: center; font-size: 29px;
-  box-shadow: 0 4px 10px #b87d9a30;
+.app{
+  border:0;background:transparent;color:#453746;
+  display:flex;align-items:center;flex-direction:column;
+  gap:7px;font-size:11px;cursor:pointer;min-width:0
 }
-.dock {
-  margin-top: auto; display: flex; justify-content: space-around;
-  background: #ffffffa8; padding: 12px; border-radius: 24px;
+.app-icon{
+  width:53px;height:53px;border-radius:17px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:27px;background:#ffffffbd;
+  box-shadow:0 4px 12px #70566b12
 }
-.dock button { border: 0; background: transparent; font-size: 25px; }
-.page { height: 100%; display: flex; flex-direction: column; }
-.top {
-  display: flex; align-items: center; gap: 15px;
-  margin: 8px 0 22px;
+.dock{
+  display:flex;justify-content:space-around;
+  background:#ffffff80;border-radius:23px;padding:10px 4px;
+  margin-top:auto
 }
-.back {
-  border: 0; background: #ffffffaa; border-radius: 50%;
-  width: 42px; height: 42px; font-size: 22px;
+.dock .app-icon{width:46px;height:46px}
+.topbar{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 15px;border-bottom:1px solid #eee
 }
-h2 { font-size: 22px; }
-.item {
-  background: #ffffffb8; border-radius: 17px;
-  padding: 16px; margin-bottom: 12px;
+.topbar button{border:0;background:#f5e8f0;border-radius:12px;padding:9px}
+.topbar h2{font-size:18px;margin:0}
+.content{padding:16px;overflow:auto;flex:1}
+.card{
+  background:#fff;border-radius:17px;padding:14px;
+  margin-bottom:12px;box-shadow:0 3px 15px #6d506b10
 }
-.item button, .action {
-  border: 0; border-radius: 18px; padding: 10px 14px;
-  background: #edbad1; margin: 4px;
+button{cursor:pointer;font-family:inherit}
+.action{
+  border:0;background:#f3d9e7;color:#513b50;
+  padding:11px 14px;border-radius:12px
 }
-.wallpapers { display: flex; gap: 10px; flex-wrap: wrap; }
-.wall {
-  width: 65px; height: 75px; border-radius: 15px;
-  border: 2px solid white;
+input,textarea{
+  width:100%;padding:12px;border:1px solid #e8dce8;
+  border-radius:12px;font:inherit;margin:7px 0;
+  background:#fffdfd;color:#453746
 }
-input {
-  max-width: 100%; padding: 12px; border-radius: 15px;
-  border: 0; background: white; color: #70465a;
+textarea{resize:vertical;min-height:100px}
+.message{background:#f8e5ef;padding:10px 12px;border-radius:15px;margin:9px 0;max-width:85%;font-size:13px}
+.message.mine{background:#e7e0ff;margin-left:auto}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{border:0;border-radius:16px;padding:18px 8px;background:#f8eaf2;font-size:14px}
+.calc-display{
+  min-height:70px;background:#f8eaf2;border-radius:15px;
+  text-align:right;padding:20px;font-size:25px;overflow-wrap:anywhere;
+  margin-bottom:12px
 }
-.message {
-  background: white; border-radius: 16px 16px 16px 4px;
-  padding: 12px; margin: 12px 0; max-width: 85%;
-}
-#messages { flex: 1; overflow: auto; }
-.send { display: flex; gap: 6px; }
-.send input { width: 100%; }
-.calc-display {
-  font-size: 36px; text-align: right; padding: 20px 4px;
-  background: #ffffffaa; border-radius: 18px; overflow-wrap: anywhere;
-}
-.calc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-.calc-grid button {
-  border: 0; border-radius: 18px; padding: 18px 0;
-  background: #ffffffc9; font-size: 18px;
-}
-.calc-grid .op { background: #e9afca; }
-.footer { text-align: center; font-size: 11px; padding-top: 12px; }
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.calc-grid button{border:0;border-radius:14px;padding:15px 0;background:#f5edf5;font-size:18px}
+.calc-grid .op{background:#eadbff}
+.small{font-size:12px;opacity:.7}
+.footer{padding:8px;text-align:center;font-size:11px;opacity:.6}
 </style>
 </head>
 <body>
-<div class="phone" id="phone">
+<div class="phone">
   <div class="status">
-    <span id="miniTime">09:41</span>
-    <span>● Wi-Fi ▰</span>
+    <span id="statusTime">09:41</span><span>● Wi-Fi ▰</span>
   </div>
 
-  <main class="screen">
-    <section class="lock" id="lock">
-      <div style="font-size:38px">🌷</div>
-      <div class="clock" id="lockClock">09:41</div>
-      <div class="date" id="date"></div>
-      <p>Welcome to my little world ♡</p>
-      <button class="unlock" onclick="goHome()">↑ &nbsp; Open phone</button>
-      <p style="font-size:12px">Tap to enter your world</p>
-    </section>
+  <section id="lock" class="screen active wallpaper">
+    <div class="lock">
+      <div style="font-size:40px">🌷</div>
+      <div id="lockClock" class="clock">09:41</div>
+      <div id="lockDate" class="date"></div>
+      <p>♡ welcome to my little world ♡</p>
+      <button class="unlock" onclick="showScreen('home')">Open my phone ↗</button>
+      <p class="small">Tap to unlock</p>
+    </div>
+  </section>
 
-    <section class="home hidden" id="home">
-      <div class="greeting">
-        <div id="homeDate"></div>
-        <h2 style="margin-bottom:5px">Hello, Nayra ♡</h2>
-        <div style="font-size:13px">Make today lovely ✨</div>
-      </div>
+  <section id="home" class="screen wallpaper">
+    <div class="home">
+      <div class="subtitle" id="homeDate"></div>
+      <div class="greeting">Hello, sunshine! ☁️</div>
+      <div class="subtitle">Welcome to my virtual phone ♡</div>
       <div class="widget">
-        <div style="font-size:28px">☁️ 🌷 ☁️</div>
-        <h2 id="homeClock">09:41</h2>
-        <div>A little space just for you</div>
+        <strong>🌸 A little reminder</strong>
+        <p>Take a breath, drink some water, and remember that small steps still count.</p>
+        <p id="homeClock" style="font-size:22px;font-weight:bold">09:41</p>
       </div>
       <div class="apps">
-        <button class="app" onclick="openApp('gallery')"><div class="app-icon">🖼️</div>Gallery</button>
-        <button class="app" onclick="openApp('messages')"><div class="app-icon">💌</div>Messages</button>
-        <button class="app" onclick="openApp('music')"><div class="app-icon">🎵</div>Music</button>
-        <button class="app" onclick="openApp('settings')"><div class="app-icon">⚙️</div>Settings</button>
-        <button class="app" onclick="openApp('calc')"><div class="app-icon">🧮</div>Calculator</button>
-        <button class="app" onclick="openApp('notes')"><div class="app-icon">📔</div>Notes</button>
+        <button class="app" onclick="openApp('gallery')"><span class="app-icon">🖼️</span>Gallery</button>
+        <button class="app" onclick="openApp('messages')"><span class="app-icon">💬</span>Messages</button>
+        <button class="app" onclick="openApp('music')"><span class="app-icon">🎵</span>Music</button>
+        <button class="app" onclick="openApp('settings')"><span class="app-icon">⚙️</span>Settings</button>
+        <button class="app" onclick="openApp('calculator')"><span class="app-icon">🧮</span>Calculator</button>
+        <button class="app" onclick="openApp('notes')"><span class="app-icon">📝</span>Notes</button>
+        <button class="app" onclick="openApp('phoneapp')"><span class="app-icon">📞</span>Phone</button>
+        <button class="app" onclick="openApp('about')"><span class="app-icon">💗</span>About</button>
       </div>
       <div class="dock">
-        <button onclick="openApp('phone')">☎️</button>
-        <button onclick="openApp('messages')">💬</button>
-        <button onclick="openApp('music')">🎧</button>
-        <button onclick="openApp('settings')">⚙️</button>
+        <button class="app" onclick="openApp('phoneapp')"><span class="app-icon">📞</span></button>
+        <button class="app" onclick="openApp('messages')"><span class="app-icon">💬</span></button>
+        <button class="app" onclick="openApp('gallery')"><span class="app-icon">🌅</span></button>
+        <button class="app" onclick="openApp('music')"><span class="app-icon">🎧</span></button>
       </div>
-      <div class="footer">Jeanverse OS · made with ♡</div>
-    </section>
+    </div>
+  </section>
 
-    <section class="page hidden" id="page">
-      <div class="top">
-        <button class="back" onclick="goHome()">‹</button>
-        <h2 id="pageTitle">App</h2>
+  <section id="gallery" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>🖼️ Gallery</h2></div>
+    <div class="content">
+      <p class="small">My little collection</p>
+      <div class="tiles">
+        <div class="card" style="text-align:center;background:#fce5ed"><div style="font-size:65px">🌷</div>Pink dreams</div>
+        <div class="card" style="text-align:center;background:#e8e1ff"><div style="font-size:65px">🌙</div>Night sky</div>
+        <div class="card" style="text-align:center;background:#e1f3ee"><div style="font-size:65px">🌿</div>Nature</div>
+        <div class="card" style="text-align:center;background:#fff0d8"><div style="font-size:65px">☁️</div>Clouds</div>
       </div>
-      <div id="content" style="flex:1;min-height:0;overflow:auto"></div>
-      <button class="action" onclick="goHome()" style="margin-top:12px">⌂ Home</button>
-    </section>
-  </main>
+      <div class="card">
+        <strong>Add your own photo</strong>
+        <input type="file" accept="image/*" id="photoInput">
+        <div id="photoPreview"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="messages" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>💬 Messages</h2></div>
+    <div class="content" id="chat">
+      <div class="message">Hii! How was your day? 🌷</div>
+      <div class="message mine">It was good, thank you ♡</div>
+      <div class="message">Remember to take care of yourself!</div>
+    </div>
+    <div style="padding:10px;display:flex;gap:6px">
+      <input id="messageInput" placeholder="Write a message..." style="margin:0">
+      <button class="action" onclick="sendMessage()">Send</button>
+    </div>
+    <p class="footer">Demo chat — messages are not sent to anyone.</p>
+  </section>
+
+  <section id="music" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>🎵 Music</h2></div>
+    <div class="content" style="text-align:center;padding-top:55px">
+      <div style="font-size:105px">🎧</div>
+      <h2>Little Playlist</h2>
+      <p class="small">Your virtual listening corner</p>
+      <div class="card">🌷 Soft morning</div>
+      <div class="card">☁️ Cloud nine</div>
+      <div class="card">🌙 Midnight thoughts</div>
+      <button class="action" id="musicButton" onclick="toggleMusic()">▶ Play demo</button>
+      <p class="small" id="musicInfo">Demo controls only; no audio is played.</p>
+    </div>
+  </section>
+
+  <section id="settings" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>⚙️ Settings</h2></div>
+    <div class="content">
+      <div class="card"><strong>🌈 Wallpaper</strong><p class="small">Choose your home screen style</p>
+        <div class="tiles">
+          <button class="tile" onclick="setWallpaper('pink')">🌸 Pink</button>
+          <button class="tile" onclick="setWallpaper('blue')">🩵 Blue</button>
+          <button class="tile" onclick="setWallpaper('purple')">💜 Purple</button>
+          <button class="tile" onclick="setWallpaper('green')">🌿 Green</button>
+        </div>
+      </div>
+      <div class="card"><strong>📱 Device</strong><p>My Virtual Phone</p><p class="small">Website simulation · Version 1.0</p></div>
+      <div class="card"><button class="action" onclick="showScreen('lock')">🔒 Lock phone</button></div>
+    </div>
+  </section>
+
+  <section id="calculator" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>🧮 Calculator</h2></div>
+    <div class="content">
+      <div id="calcDisplay" class="calc-display">0</div>
+      <div class="calc-grid">
+        <button onclick="calcClear()">C</button><button onclick="calcAdd('(')">(</button><button onclick="calcAdd(')')">)</button><button class="op" onclick="calcAdd('/')">÷</button>
+        <button onclick="calcAdd('7')">7</button><button onclick="calcAdd('8')">8</button><button onclick="calcAdd('9')">9</button><button class="op" onclick="calcAdd('*')">×</button>
+        <button onclick="calcAdd('4')">4</button><button onclick="calcAdd('5')">5</button><button onclick="calcAdd('6')">6</button><button class="op" onclick="calcAdd('-')">−</button>
+        <button onclick="calcAdd('1')">1</button><button onclick="calcAdd('2')">2</button><button onclick="calcAdd('3')">3</button><button class="op" onclick="calcAdd('+')">+</button>
+        <button onclick="calcAdd('0')">0</button><button onclick="calcAdd('.')">.</button><button onclick="calcBack()">⌫</button><button class="op" onclick="calcResult()">=</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="notes" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>📝 Notes</h2></div>
+    <div class="content">
+      <p class="small">Write something for yourself ♡</p>
+      <input id="noteTitle" placeholder="Note title">
+      <textarea id="noteBody" placeholder="Write your thoughts here..."></textarea>
+      <button class="action" onclick="saveNote()">Save note</button>
+      <p id="noteStatus" class="small"></p>
+      <div class="card"><strong>Saved note</strong><h3 id="savedTitle">My note</h3><p id="savedBody">Your saved note will appear here.</p></div>
+    </div>
+  </section>
+
+  <section id="phoneapp" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>📞 Phone</h2></div>
+    <div class="content" style="text-align:center;padding-top:35px">
+      <div style="font-size:75px">☎️</div>
+      <h2>Phone</h2>
+      <p class="small">Virtual phone keypad</p>
+      <input id="phoneNumber" placeholder="Enter a number" inputmode="tel">
+      <div class="tiles">
+        <button class="tile" onclick="dial('1')">1</button><button class="tile" onclick="dial('2')">2</button>
+        <button class="tile" onclick="dial('3')">3</button><button class="tile" onclick="dial('4')">4</button>
+        <button class="tile" onclick="dial('5')">5</button><button class="tile" onclick="dial('6')">6</button>
+        <button class="tile" onclick="dial('7')">7</button><button class="tile" onclick="dial('8')">8</button>
+        <button class="tile" onclick="dial('9')">9</button><button class="tile" onclick="dial('0')">0</button>
+      </div>
+      <button class="action" style="margin-top:15px" onclick="document.getElementById('phoneNumber').value=''">Clear</button>
+      <p class="small">This demo cannot make real calls.</p>
+    </div>
+  </section>
+
+  <section id="about" class="screen">
+    <div class="topbar"><button onclick="goHome()">‹</button><h2>💗 About</h2></div>
+    <div class="content" style="text-align:center;padding-top:65px">
+      <div style="font-size:85px">🌷</div>
+      <h2>My Virtual Phone</h2>
+      <p>A tiny digital world made with love.</p>
+      <div class="card">Explore the apps, change the wallpaper, write notes, and make this little phone your own.</div>
+      <p class="small">Made for fun ♡</p>
+    </div>
+  </section>
 </div>
 
 <script>
-const $ = id => document.getElementById(id);
-let currentApp = "";
-let calcValue = "";
-let musicPlaying = false;
-
-function updateTime() {
-  const n = new Date();
-  const time = n.toLocaleTimeString("id-ID", {
-    hour: "2-digit", minute: "2-digit", hour12: false
-  });
-  const date = n.toLocaleDateString("en-GB", {
-    weekday: "long", day: "numeric", month: "long"
-  });
-  $("miniTime").textContent = time;
-  $("lockClock").textContent = time;
-  $("homeClock").textContent = time;
-  $("date").textContent = date;
-  $("homeDate").textContent = date;
+const screenIds=['lock','home','gallery','messages','music','settings','calculator','notes','phoneapp','about'];
+function showScreen(id){
+  screenIds.forEach(s=>document.getElementById(s).classList.toggle('active',s===id));
 }
-updateTime();
-setInterval(updateTime, 1000);
-
-function goHome() {
-  $("lock").classList.add("hidden");
-  $("page").classList.add("hidden");
-  $("home").classList.remove("hidden");
-  currentApp = "";
+function openApp(id){showScreen(id)}
+function goHome(){showScreen('home')}
+function updateClock(){
+  const d=new Date();
+  const time=d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false});
+  const date=d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('statusTime').textContent=time;
+  document.getElementById('lockClock').textContent=time;
+  document.getElementById('homeClock').textContent=time;
+  document.getElementById('lockDate').textContent=date;
+  document.getElementById('homeDate').textContent=date;
 }
+updateClock();
+setInterval(updateClock,1000);
 
-function openApp(name) {
-  currentApp = name;
-  $("home").classList.add("hidden");
-  $("lock").classList.add("hidden");
-  $("page").classList.remove("hidden");
-
-  const titles = {
-    gallery:"Gallery", messages:"Messages", music:"Music",
-    settings:"Settings", calc:"Calculator", notes:"Notes",
-    phone:"Phone"
+function setWallpaper(color){
+  const backgrounds={
+    pink:'linear-gradient(155deg,#fbd9e6,#e9d9ff 55%,#d5eaff)',
+    blue:'linear-gradient(155deg,#d6efff,#d8e0ff 55%,#e7dfff)',
+    purple:'linear-gradient(155deg,#eedcff,#d9d7ff 55%,#f7dff0)',
+    green:'linear-gradient(155deg,#d8f2df,#e3f1d6 55%,#d7eeef)'
   };
-  $("pageTitle").textContent = titles[name] || name;
-  const c = $("content");
-
-  if (name === "gallery") {
-    c.innerHTML = `
-      <div class="item">🌷 My favorite things</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div class="item" style="font-size:50px;text-align:center">🌸<br><small>Flowers</small></div>
-        <div class="item" style="font-size:50px;text-align:center">🌅<br><small>Sunset</small></div>
-        <div class="item" style="font-size:50px;text-align:center">🧸<br><small>Memories</small></div>
-        <div class="item" style="font-size:50px;text-align:center">🎀<br><small>Pink</small></div>
-      </div>`;
-  } else if (name === "settings") {
-    c.innerHTML = `
-      <div class="item"><b>Display & wallpaper</b><p>Choose your home screen color.</p>
-      <div class="wallpapers">
-        <button class="wall" style="background:linear-gradient(#f6c1d8,#fff0f5)" onclick="wallpaper('#f6c1d8','#fff0f5')"></button>
-        <button class="wall" style="background:linear-gradient(#c8dafa,#edf4ff)" onclick="wallpaper('#c8dafa','#edf4ff')"></button>
-        <button class="wall" style="background:linear-gradient(#d6e9c9,#f4f8e9)" onclick="wallpaper('#d6e9c9','#f4f8e9')"></button>
-        <button class="wall" style="background:linear-gradient(#dac9f5,#f8f0ff)" onclick="wallpaper('#dac9f5','#f8f0ff')"></button>
-      </div></div>
-      <div class="item"><b>About phone</b><p>Jeanverse OS ♡</p><small>Virtual phone demo · Version 1.0</small></div>`;
-  } else if (name === "messages") {
-    c.innerHTML = `
-      <div id="messages"><div class="message">Welcome to Messages! 💗<br>This is a demo chat.</div></div>
-      <form class="send" onsubmit="sendMessage(event)">
-        <input id="msgInput" placeholder="Write a message..." autocomplete="off">
-        <button class="action">Send</button>
-      </form>`;
-  } else if (name === "music") {
-    c.innerHTML = `
-      <div class="item" style="text-align:center;padding:30px 10px">
-        <div style="font-size:85px">🎧</div><h2>My Little Playlist</h2>
-        <p>Imagine your favorite song ♡</p>
-        <button class="action" onclick="toggleMusic(this)">▶ Play / Pause</button>
-        <p id="musicStatus">Player demo — no audio loaded</p>
-      </div>`;
-  } else if (name === "notes") {
-    c.innerHTML = `
-      <div class="item"><b>My Notes ♡</b><p>Write something for yourself.</p>
-      <textarea id="noteText" placeholder="Your little thoughts..." style="width:100%;height:200px;border:0;border-radius:12px;padding:12px;background:white;color:#70465a"></textarea>
-      <button class="action" onclick="saveNote()">Save note</button>
-      <p id="noteStatus"></p></div>`;
-  } else if (name === "calc") {
-    calcValue = "";
-    c.innerHTML = `
-      <div class="calc-display" id="calcDisplay">0</div>
-      <div class="calc-grid" style="margin-top:12px">
-      ${["7","8","9","÷","4","5","6","×","1","2","3","−","C","0","=","+"].map(k=>
-        `<button class="${["÷","×","−","+","=","C"].includes(k)?"op":""}" onclick="calcPress('${k}')">${k}</button>`
-      ).join("")}
-      </div>`;
-  } else {
-    c.innerHTML = `
-      <div class="item" style="text-align:center">
-      <div style="font-size:55px">☎️</div>
-      <h2>Phone</h2><p>This is a virtual phone screen.</p>
-      <p>It cannot place real calls.</p></div>`;
+  document.querySelectorAll('.wallpaper').forEach(el=>el.style.background=backgrounds[color]||backgrounds.pink);
+}
+function sendMessage(){
+  const input=document.getElementById('messageInput');
+  const value=input.value.trim();
+  if(!value)return;
+  const bubble=document.createElement('div');
+  bubble.className='message mine';
+  bubble.textContent=value;
+  document.getElementById('chat').appendChild(bubble);
+  input.value='';
+  document.getElementById('chat').scrollTop=document.getElementById('chat').scrollHeight;
+}
+let musicPlaying=false;
+function toggleMusic(){
+  musicPlaying=!musicPlaying;
+  document.getElementById('musicButton').textContent=musicPlaying?'Ⅱ Pause demo':'▶ Play demo';
+  document.getElementById('musicInfo').textContent=musicPlaying?'Demo mode is active; no audio is played.':'Demo controls only; no audio is played.';
+}
+let calcExpression='';
+function calcAdd(v){
+  if(calcExpression.length>45)return;
+  calcExpression+=v;
+  document.getElementById('calcDisplay').textContent=calcExpression;
+}
+function calcClear(){
+  calcExpression='';
+  document.getElementById('calcDisplay').textContent='0';
+}
+function calcBack(){
+  calcExpression=calcExpression.slice(0,-1);
+  document.getElementById('calcDisplay').textContent=calcExpression||'0';
+}
+function calculate(expression){
+  const tokens=expression.match(/\d*\.?\d+|[()+\-*/]/g);
+  if(!tokens||tokens.join('')!==expression)throw Error('Invalid');
+  let i=0;
+  function factor(){
+    const t=tokens[i++];
+    if(t==='-')return -factor();
+    if(t==='+')return factor();
+    if(t==='('){
+      const v=expr();
+      if(tokens[i++]!==')')throw Error('Invalid');
+      return v;
+    }
+    const n=Number(t);
+    if(t===undefined||t===''||!Number.isFinite(n))throw Error('Invalid');
+    return n;
+  }
+  function term(){
+    let v=factor();
+    while(tokens[i]==='*'||tokens[i]==='/'){
+      const op=tokens[i++],n=factor();
+      if(op==='/'&&n===0)throw Error('Divide by zero');
+      v=op==='*'?v*n:v/n;
+    }
+    return v;
+  }
+  function expr(){
+    let v=term();
+    while(tokens[i]==='+'||tokens[i]==='-'){
+      const op=tokens[i++],n=term();
+      v=op==='+'?v+n:v-n;
+    }
+    return v;
+  }
+  const result=expr();
+  if(i!==tokens.length||!Number.isFinite(result))throw Error('Invalid');
+  return result;
+}
+function calcResult(){
+  try{
+    const result=calculate(calcExpression);
+    calcExpression=String(Number(result.toFixed(8)));
+    document.getElementById('calcDisplay').textContent=calcExpression;
+  }catch(e){
+    document.getElementById('calcDisplay').textContent='Invalid';
+    calcExpression='';
   }
 }
-
-function wallpaper(a,b) {
-  $("phone").style.background = `linear-gradient(145deg,${a},${b},${a})`;
+function saveNote(){
+  const title=document.getElementById('noteTitle').value.trim()||'My note';
+  const body=document.getElementById('noteBody').value;
+  document.getElementById('savedTitle').textContent=title;
+  document.getElementById('savedBody').textContent=body||'(Empty note)';
+  document.getElementById('noteStatus').textContent='Note saved on this screen ♡';
+  try{
+    localStorage.setItem('virtualPhoneNoteTitle',title);
+    localStorage.setItem('virtualPhoneNoteBody',body);
+  }catch(e){}
 }
-function sendMessage(e) {
-  e.preventDefault();
-  const input = $("msgInput");
-  if (!input.value.trim()) return;
-  const msg = document.createElement("div");
-  msg.className = "message";
-  msg.style.marginLeft = "auto";
-  msg.style.borderRadius = "16px 16px 4px 16px";
-  msg.textContent = input.value;
-  $("messages").appendChild(msg);
-  input.value = "";
-}
-function toggleMusic(btn) {
-  musicPlaying = !musicPlaying;
-  $("musicStatus").textContent = musicPlaying
-    ? "Demo player is on (no audio loaded)"
-    : "Player demo — no audio loaded";
-}
-function saveNote() {
-  $("noteStatus").textContent = "Note saved for this screen ♡";
-}
-function calcPress(k) {
-  const d = $("calcDisplay");
-  if (k === "C") calcValue = "";
-  else if (k === "=") {
-    try {
-      const expression = calcValue.replace(/×/g,"*").replace(/÷/g,"/");
-      if (!/^[0-9+\-*/.() ]+$/.test(expression)) throw Error();
-      const result = Function('"use strict";return (' + expression + ')')();
-      calcValue = Number.isFinite(result) ? String(result) : "";
-    } catch { calcValue = "Error"; }
-  } else {
-    if (calcValue === "Error") calcValue = "";
-    calcValue += k;
+try{
+  const title=localStorage.getItem('virtualPhoneNoteTitle');
+  const body=localStorage.getItem('virtualPhoneNoteBody');
+  if(title!==null){
+    document.getElementById('noteTitle').value=title;
+    document.getElementById('noteBody').value=body||'';
+    document.getElementById('savedTitle').textContent=title;
+    document.getElementById('savedBody').textContent=body||'(Empty note)';
   }
-  d.textContent = calcValue || "0";
+}catch(e){}
+function dial(n){
+  document.getElementById('phoneNumber').value+=n;
 }
+document.getElementById('photoInput').addEventListener('change',function(){
+  const file=this.files&&this.files[0];
+  if(!file)return;
+  if(!file.type.startsWith('image/'))return;
+  const url=URL.createObjectURL(file);
+  const img=document.createElement('img');
+  img.src=url;
+  img.alt='Your selected photo';
+  img.style.cssText='width:100%;border-radius:14px;margin-top:10px';
+  const preview=document.getElementById('photoPreview');
+  preview.replaceChildren(img);
+});
 </script>
 </body>
 </html>
-
